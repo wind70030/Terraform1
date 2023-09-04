@@ -1,0 +1,27 @@
+# eks terraform code 참조
+https://github.com/HanHoRang31/T101-Terraform-EKS/blob/main/1.Building-EKS-with-Terraform/01-ekscluster-terraform-manifests/c5-08-eks-node-group-private.tf
+
+# .terraform화일을 push에서 제외
+git filter-branch -f --index-filter 'git rm --cached -r --ignore-unmatch .terraform/'
+
+# Remote origin already exists 에러
+1. >git remote remove origin
+2. >git remote add origin [새롭게 연결할 깃 레파지토리 주소]
+3. >git remote -v
+4. >git commit -m "comment"
+5. >git push origin main
+
+# Argocd yaml intall 방법
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+#argocd 외부 접속 포인트 설정 방법
+kubectl get service -n argocd 
+kubectl edit svc argocd-server -n argocd
+    type: ClusterIP  ->  type: NodePort   또는  type: LoadBalancer  변경
+
+# argocd password 확인 방법
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+# kubectl로 EKS 접근하기 위한 config 작업
+aws configure
