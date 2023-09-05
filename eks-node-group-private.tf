@@ -12,7 +12,7 @@ resource "aws_eks_node_group" "eks_ng_addon" {
   ami_type = "AL2_x86_64"  
   capacity_type = "ON_DEMAND"
   disk_size = 10
-  instance_types = ["t2.micro"]
+  instance_types = ["t3.medium"]
   
   labels = {
     nodegroup-type = "addon"
@@ -23,8 +23,8 @@ resource "aws_eks_node_group" "eks_ng_addon" {
   } */
 
   scaling_config {
-    desired_size = 1
-    min_size     = 1    
+    desired_size = 2
+    min_size     = 2    
     max_size     = 2
   }
 

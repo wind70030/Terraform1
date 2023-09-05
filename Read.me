@@ -21,7 +21,9 @@ kubectl edit svc argocd-server -n argocd
     type: ClusterIP  ->  type: NodePort   또는  type: LoadBalancer  변경
 
 # argocd password 확인 방법
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -data
+or
+https://www.base64decode.org/에 접속하여 "kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}""로 나온 인코딩 값을 디코딩함
 
 # kubectl로 EKS 접근하기 위한 config 작업
 aws configure
