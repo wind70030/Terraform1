@@ -27,3 +27,6 @@ https://www.base64decode.org/에 접속하여 "kubectl -n argocd get secret argo
 
 # kubectl로 EKS 접근하기 위한 config 작업
 aws configure
+
+#kubectl이 eks에 연동 안될 때
+aws eks --region ap-northeast-2 update-kubeconfig --name [클러스터 이름]
