@@ -30,3 +30,16 @@ aws configure
 
 #kubectl이 eks에 연동 안될 때
 aws eks --region ap-northeast-2 update-kubeconfig --name [클러스터 이름]
+
+# git push나 pull했을 때 "fatal: refusing to merge unrelated histories" error 발생 시 조치 방법
+git pull origin [branch name] --allow-unrelated-histories 
+
+# argocd에서 github 연동 방법(https://minha0220.tistory.com/113 참고)
+1. key 생성
+   ssh-keygen -t ed25519 -C "your_email@example.com"
+2. ssh-agent를 백그라운드에서 실행(git bash에서 실행해야 함)
+   eval "$(ssh-agent -s)"
+3. ssh-agent에 SSH 프라이빗 키를 추가(git bash에서 실행해야 함)
+   ssh-add ~/.ssh/id_ed25519
+4. C:/사용자/pc/.ssh/id_ed25519.pub 내용 copy
+5. 이 퍼블릭 키를 복사해서 Github > Settings > SSH and GPG keys > New SSH key 에 추가
