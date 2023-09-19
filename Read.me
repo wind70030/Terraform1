@@ -53,6 +53,8 @@ curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-lo
 # ALB 정책 설정
 aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam-policy.json
 
+# CloudFormation에 있는 stack 삭제 후 Service Account 생성해라.
+
 # Service Account 생성 및 AWS LoadBalancer Controller IAM 역할 연결 
 eksctl create iamserviceaccount --cluster=SAP-terraform-eks --namespace=kube-system --name=aws-load-balancer-controller1 --attach-policy-arn=arn:aws:iam::XXXXXXXXXXX:policy/AWSLoadBalancerControllerIAMPolicy --override-existing-serviceaccounts --region ap-northeast-2 --approve
 
