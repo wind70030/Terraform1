@@ -57,6 +57,7 @@ aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-
 
 # Service Account 생성 및 AWS LoadBalancer Controller IAM 역할 연결 
 eksctl create iamserviceaccount --cluster=SAP-terraform-eks --namespace=kube-system --name=aws-load-balancer-controller --attach-policy-arn=arn:aws:iam::XXXXXXXXXXX:policy/AWSLoadBalancerControllerIAMPolicy --override-existing-serviceaccounts --region ap-northeast-2 --approve
+(LoadBalancer Controller 생성확인 방법 : kubectl get sa aws-load-balancer-controller -n kube-system)
 
 # 인증서 관리자 설치
 kubectl apply --validate=false -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
