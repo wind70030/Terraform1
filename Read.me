@@ -64,6 +64,8 @@ kubectl apply --validate=false -f https://github.com/cert-manager/cert-manager/r
 
 #AWS Loadbalancer Controller Pod 설치를 위한 yaml화일 다운로드
 curl https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/download/v2.3.1/v2_3_1_full.yaml
+# v2_3_1_full.yaml화일의 Deployment에 지정된 cluster-name 값을 현재 배포한 Cluster name으로 변경
+# kind: ServiceAccount 섹션 삭제
 
 # arcocd ingress 적용 방법 참조
 https://developnote-blog.tistory.com/171
