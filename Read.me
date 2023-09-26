@@ -70,7 +70,7 @@ https://developnote-blog.tistory.com/171
 
 # AWS ALB Controller 삭제 방법
 kubectl delete -f v2_5_3_full.yaml
-kubectl delete --validate=false -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
-eksctl delete iamserviceaccount --cluster SAP-terraform-eks --name aws-load-balancer-controller1 --namespace kube-system --wait
+kubectl delete -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
+eksctl delete iamserviceaccount --cluster SAP-terraform-eks --name aws-load-balancer-controller --namespace kube-system --wait
 aws iam delete-policy --policy-arn arn:aws:iam::XXXXXXXXX:policy/AWSLoadBalancerControllerIAMPolicy
 IAM OIDC Provider GUI에서 삭제
