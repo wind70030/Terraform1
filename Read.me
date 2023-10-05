@@ -44,45 +44,41 @@ git pull origin [branch name] --allow-unrelated-histories
 4. C:/사용자/pc/.ssh/id_ed25519.pub 내용 copy
 5. 이 퍼블릭 키를 복사해서 Github > Settings > SSH and GPG keys > New SSH key 에 추가
 
-# IAM OIDC Provider 생성
+# arcocd ingress 적용 방법 참조
+https://developnote-blog.tistory.com/171
+=========================================================================================
+1. aws alb controller 생성 방법
+1) IAM OIDC Provider 생성
 eksctl utils associate-iam-oidc-provider --region ap-northeast-2 --cluster SAP-terraform-eks --approve
      
-# ALB에 대한 정책 다운로드
-curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.1/docs/install/iam_policy.json
+2) ALB에 대한 정책 다운로드
+curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.7/docs/install/iam_policy.json
 
-# ALB 정책 설정
+3) ALB 정책 설정
 aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam-policy.json
 
-# CloudFormation에 있는 stack 삭제 후 Service Account 생성해라.
-
-# Service Account 생성 및 AWS LoadBalancer Controller IAM 역할 연결 
+4) Service Account 생성 및 AWS LoadBalancer Controller IAM 역할 연결(CloudFormation에 있는 stack 삭제 후 Service Account 생성해라.)
 eksctl create iamserviceaccount --cluster=SAP-terraform-eks --namespace=kube-system --name=aws-load-balancer-controller --attach-policy-arn=arn:aws:iam::XXXXXXXXXXX:policy/AWSLoadBalancerControllerIAMPolicy --override-existing-serviceaccounts --region ap-northeast-2 --approve
 (LoadBalancer Controller 생성확인 방법 : kubectl get sa aws-load-balancer-controller -n kube-system)
 
-# 인증서 관리자 설치
+5) 인증서 관리자 설치
 kubectl apply --validate=false -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
 
-#AWS Loadbalancer Controller Pod 설치를 위한 yaml화일 다운로드
-curl https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/download/v2.3.1/v2_3_1_full.yaml
-or
-curl https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/download/v2.5.3/v2_5_3_full.yaml
+6) AWS Loadbalancer Controller Pod 설치
+helm upgrade --install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=SAP-terraform-eks --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
+(생성한 controller pod 확인 kubectl -n kube-system get pods | grep balancer)
 
-# v2_3_1_full.yaml화일의 Deployment에 지정된 cluster-name 값을 현재 배포한 Cluster name으로 변경
-# kind: ServiceAccount 섹션 삭제 후 아래 명령 실행
-kubectl apply -f v2_5_3_full.yaml
-kubectl -n kube-system get pods | grep balancer
+2. aws alb 적용 예제 app
+1) kubectl create namespace test-ing-alb
+2) kubectl apply -f ./test-app-service.yaml
+3) kubectl get pod -n test-ing-alb
+4) kubectl apply -f ./test-ingress.yaml
+5) kubectl get ing -n test-ing-alb
 
-# arcocd ingress 적용 방법 참조
-https://developnote-blog.tistory.com/171
-
-# AWS ALB Controller 삭제 방법
-kubectl delete -f v2_5_3_full.yaml
-kubectl delete -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
-eksctl delete iamserviceaccount --cluster SAP-terraform-eks --name aws-load-balancer-controller --namespace kube-system --wait
-aws iam delete-policy --policy-arn arn:aws:iam::XXXXXXXXX:policy/AWSLoadBalancerControllerIAMPolicy
-IAM OIDC Provider GUI에서 삭제
-CloudFormation에 있는 stack 삭제
-
-
-
-test
+3. AWS ALB Controller 삭제 방법
+1) helm uninstall aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system
+2) kubectl delete -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
+3) eksctl delete iamserviceaccount --cluster SAP-terraform-eks --name aws-load-balancer-controller --namespace kube-system --wait
+4) aws management console에서 AWSLoadBalancerControllerIAMPolicy 삭제
+5) aws management console에서 IAM OIDC Provider 삭제
+6) aws management console에서 CloudFormation에 있는 stack 삭제
