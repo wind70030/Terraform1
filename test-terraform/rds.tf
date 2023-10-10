@@ -23,6 +23,8 @@ resource "aws_db_instance" "database" {
     engine = "mariadb"
     engine_version = "10.6.8"
     instance_class = "db.t3.small"
+    multi_az = true
+    availability_zone = "ap-northeast-2a"
     /* db_name = "testDB" */
     username = "admin"
     password = "testtest"
