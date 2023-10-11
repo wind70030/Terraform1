@@ -17,7 +17,7 @@ module "vpc" {
 
   # Database Subnets
   database_subnets = var.vpc_database_subnets
-  # create_database_subnet_group = var.vpc_create_database_subnet_group
+#  create_database_subnet_group = var.vpc_create_database_subnet_group
   create_database_subnet_route_table = var.vpc_create_database_subnet_route_table
   create_database_internet_gateway_route = false
   create_database_nat_gateway_route = true
