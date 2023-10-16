@@ -17,6 +17,17 @@ resource "aws_security_group" "Private-SG" {
     Name = "private SG"
   }
 }
+
+## DB 보안 그룹
+resource "aws_security_group" "DB-SG" {
+  vpc_id = module.vpc.vpc_id
+  name = "DB SG"
+  description = "DB SG"
+  tags = {
+    Name = "DB SG"
+  }
+}
+
 ## 퍼블릭 보안 그룹 규칙
 resource "aws_security_group_rule" "PublicSGRulesHTTPingress" {
   type = "ingress"
@@ -90,8 +101,8 @@ resource "aws_security_group_rule" "PrivateSGRulesRDSingress" {
   from_port = 3306
   to_port = 3306
   protocol = "TCP"
-  security_group_id = aws_security_group.Private-SG.id
-  source_security_group_id = aws_security_group.Public-SG.id
+  security_group_id = aws_security_group.DB-SG.id
+  source_security_group_id = aws_security_group.Private-SG.id
   lifecycle {
     create_before_destroy = true
   }
@@ -101,8 +112,8 @@ resource "aws_security_group_rule" "PrivateSGRulesRDSegress" {
   from_port = 3306
   to_port = 3306
   protocol = "TCP"
-  security_group_id = aws_security_group.Private-SG.id
-  source_security_group_id = aws_security_group.Public-SG.id
+  security_group_id = aws_security_group.DB-SG.id
+  source_security_group_id = aws_security_group.Private-SG.id
   lifecycle {
     create_before_destroy = true
   }
