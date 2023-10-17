@@ -1,8 +1,18 @@
+#rds의 서브넷 그룹으로 사용할 subnet들 미리 지정
+
+resource "aws_db_subnet_group" "realDBSubnetGroup" {
+  name = "db_subnet_group"
+  subnet_ids = module.vpc.database_subnets
+  tags = {
+    "Name" = "db-subnet-group"
+  }
+}
+
 # RDS DB Cluster 생성
 resource "aws_rds_cluster" "rds_cluster" {
   cluster_identifier = "rds-cluster"
-  # db_subnet_group_name   = "${aws_db_subnet_group.realDBSubnetGroup.id}"
-  db_subnet_group_name   = local.eks_cluster_name
+  db_subnet_group_name   = "${aws_db_subnet_group.realDBSubnetGroup.id}"
+  # db_subnet_group_name   = local.eks_cluster_name
   vpc_security_group_ids = [aws_security_group.DB-SG.id]
   engine = "aurora-mysql"
   engine_version = "5.7.mysql_aurora.2.11.1"
@@ -12,6 +22,9 @@ resource "aws_rds_cluster" "rds_cluster" {
   master_password = "testtest"
   skip_final_snapshot = true
   apply_immediately    = true
+  /* depends_on = [
+    module.vpc,
+  ]  */
 }
 
   
