@@ -48,14 +48,14 @@ variable "vpc_database_subnets" {
 variable "vpc_create_database_subnet_group" {
   description = "VPC Create Database Subnet Group"
   type = bool
-  default = true 
+  default = false 
 }
 
 # VPC Create Database Subnet Route Table (True or False)
 variable "vpc_create_database_subnet_route_table" {
   description = "VPC Create Database Subnet Route Table"
   type = bool
-  default = true   
+  default = false   
 }
 
   
