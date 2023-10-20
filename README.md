@@ -50,10 +50,10 @@
      - #aws eks --region ap-northeast-2 update-kubeconfig --name SAP-terraform-eks
 
 5. EKS에 AWS ALB Controller를 설치
-   1) IAM OIDC Provider 생성
-      #eksctl utils associate-iam-oidc-provider --region ap-northeast-2 --cluster SAP-terraform-eks --approve
-   2) ALB에 대한 정책 다운로드
-      #curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.7/docs/install/iam_policy.json
+   - 1) IAM OIDC Provider 생성
+        - #eksctl utils associate-iam-oidc-provider --region ap-northeast-2 --cluster SAP-terraform-eks --approve
+   - 2) ALB에 대한 정책 다운로드
+        - #curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.7/docs/install/iam_policy.json
    3) ALB 정책 설정
       #aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam-policy.json
    4) Service Account 생성 및 AWS LoadBalancer Controller IAM 역할 연결(CloudFormation에 있는 stack 삭제 후 Service Account 생성해라.)
