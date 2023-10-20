@@ -33,9 +33,9 @@
       - or
       - https://www.base64decode.org/에 접속하여 "kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}""로 나온 인코딩 값을 디코딩함
    4) argocd에서 github 연동 방법(https://minha0220.tistory.com/113 참고)
-      가. key 생성
+      - 가. key 생성
           #ssh-keygen -t ed25519 -C "your_email@example.com"
-      나. ssh-agent를 백그라운드에서 실행(git bash에서 실행해야 함)
+      - 나. ssh-agent를 백그라운드에서 실행(git bash에서 실행해야 함)
           #eval "$(ssh-agent -s)"
       다. ssh-agent에 SSH 프라이빗 키를 추가(git bash에서 실행해야 함)
           #ssh-add ~/.ssh/id_ed25519
