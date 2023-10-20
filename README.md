@@ -47,7 +47,7 @@
 3. kubectl로 EKS 접근하기 위한 config 작업
    - #aws configure
    - kubectl이 eks에 연동 안될 때 처리 방법
-     #aws eks --region ap-northeast-2 update-kubeconfig --name SAP-terraform-eks
+     - #aws eks --region ap-northeast-2 update-kubeconfig --name SAP-terraform-eks
 
 5. EKS에 AWS ALB Controller를 설치
    1) IAM OIDC Provider 생성
