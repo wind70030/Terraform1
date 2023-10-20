@@ -37,10 +37,10 @@
           #ssh-keygen -t ed25519 -C "your_email@example.com"
       - 나. ssh-agent를 백그라운드에서 실행(git bash에서 실행해야 함)
           #eval "$(ssh-agent -s)"
-      다. ssh-agent에 SSH 프라이빗 키를 추가(git bash에서 실행해야 함)
+      - 다. ssh-agent에 SSH 프라이빗 키를 추가(git bash에서 실행해야 함)
           #ssh-add ~/.ssh/id_ed25519
-      라. C:/사용자/pc/.ssh/id_ed25519.pub 내용 copy
-      마. 이 퍼블릭 키를 복사해서 Github > Settings > SSH and GPG keys > New SSH key 에 추가
+      - 라. C:/사용자/pc/.ssh/id_ed25519.pub 내용 copy
+      - 마. 이 퍼블릭 키를 복사해서 Github > Settings > SSH and GPG keys > New SSH key 에 추가
     5) arcocd ingress 적용 방법 참조
        https://developnote-blog.tistory.com/171
 
