@@ -30,7 +30,7 @@
       - "type: ClusterIP"를  ->  "type: NodePort"   또는  "type: LoadBalancer"로  변경
    3) argocd password 확인 방법
       - #kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -data
-        or
+      - or
       - https://www.base64decode.org/에 접속하여 "kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}""로 나온 인코딩 값을 디코딩함
    4) argocd에서 github 연동 방법(https://minha0220.tistory.com/113 참고)
       가. key 생성
