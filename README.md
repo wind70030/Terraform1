@@ -58,24 +58,24 @@
         - #aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam-policy.json
    - 4) Service Account 생성 및 AWS LoadBalancer Controller IAM 역할 연결(CloudFormation에 있는 stack 삭제 후 Service Account 생성해라.)
         - #eksctl create iamserviceaccount --cluster=SAP-terraform-eks --namespace=kube-system --name=aws-load-balancer-controller --attach-policy-arn=arn:aws:iam::XXXXXXXXXXX:policy/AWSLoadBalancerControllerIAMPolicy --override-existing-serviceaccounts --region ap-northeast-2 --approve
-   - 4-1) LoadBalancer Controller 생성확인 방법
+   - 5) LoadBalancer Controller 생성확인 방법
         - #kubectl get sa aws-load-balancer-controller -n kube-system
-   - 5) 인증서 관리자 설치
+   - 6) 인증서 관리자 설치
         - #kubectl apply --validate=false -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
-   - 6) AWS Loadbalancer Controller Pod 설치
+   - 7) AWS Loadbalancer Controller Pod 설치
         - #helm upgrade --install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=SAP-terraform-eks --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
-   - 7) 생성한 controller pod 확인
+   - 8) 생성한 controller pod 확인
         - #kubectl -n kube-system get pods | grep balancer)
-   - 8) aws alb 적용 예제 app
+   - 9) aws alb 적용 예제 app
         - 가. #kubectl create namespace test-ing-alb
         - 나. #kubectl apply -f ./test-app-service.yaml
         - 다. #kubectl get pod -n test-ing-alb
         - 라. #kubectl apply -f ./test-ingress.yaml
         - 마. #kubectl get ing -n test-ing-alb
-   9) AWS ALB Controller 삭제 방법
-      가. #helm uninstall aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system
-      나. #kubectl delete -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
-      다. #eksctl delete iamserviceaccount --cluster SAP-terraform-eks --name aws-load-balancer-controller --namespace kube-system --wait
-      라. #aws management console에서 AWSLoadBalancerControllerIAMPolicy 삭제
-      마. aws management console에서 IAM OIDC Provider 삭제
-      바. aws management console에서 CloudFormation에 있는 stack 삭제
+   - 10) AWS ALB Controller 삭제 방법
+        - 가. #helm uninstall aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system
+        - 나. #kubectl delete -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
+        - 다. #eksctl delete iamserviceaccount --cluster SAP-terraform-eks --name aws-load-balancer-controller --namespace kube-system --wait
+        - 라. #aws management console에서 AWSLoadBalancerControllerIAMPolicy 삭제
+        - 마. aws management console에서 IAM OIDC Provider 삭제
+        - 바. aws management console에서 CloudFormation에 있는 stack 삭제
