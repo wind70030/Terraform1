@@ -9,7 +9,7 @@
 
 2. Git 명령과 관련된 Tip
    - Remote origin already exists 에러 발생 시 처리 방법
-     #git remote remove origin
+     - #git remote remove origin
      #git remote add origin [새롭게 연결할 깃 레파지토리 주소]
      #git remote -v
      #git commit -m "comment"
