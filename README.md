@@ -27,7 +27,7 @@
    2) argocd 외부 접속 포인트 설정 방법
       - #kubectl get service -n argocd 
       - #kubectl edit svc argocd-server -n argocd
-        type: ClusterIP  ->  type: NodePort   또는  type: LoadBalancer  변경
+        - type: ClusterIP  ->  type: NodePort   또는  type: LoadBalancer  변경
    3) argocd password 확인 방법
       - #kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -data
         or
