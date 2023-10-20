@@ -5,7 +5,7 @@
 1. EKS와 RDS를 생성하는 테라폼 코드
    - "Terraform1" 프로젝트의 테라폼 코드를 실행하면 EKS와 RDS가 구성됨
    * eks terraform code 참조 사이트
-     https://github.com/HanHoRang31/T101-Terraform-EKS/blob/main/1.Building-EKS-with-Terraform/01-ekscluster-terraform-manifests/c5-08-eks-node-group-private.tf
+     - https://github.com/HanHoRang31/T101-Terraform-EKS/blob/main/1.Building-EKS-with-Terraform/01-ekscluster-terraform-manifests/c5-08-eks-node-group-private.tf
 
 2. Git 명령과 관련된 Tip
    - Remote origin already exists 에러 발생 시 처리 방법
