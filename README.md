@@ -10,14 +10,14 @@
 2. Git 명령과 관련된 Tip
    - Remote origin already exists 에러 발생 시 처리 방법
      - #git remote remove origin
-     #git remote add origin [새롭게 연결할 깃 레파지토리 주소]
-     #git remote -v
-     #git commit -m "comment"
-     #git push origin main
+     - #git remote add origin [새롭게 연결할 깃 레파지토리 주소]
+     - #git remote -v
+     - #git commit -m "comment"
+     - #git push origin main
    - .terraform화일을 git push에서 제외하는 방법
-     #git filter-branch -f --index-filter 'git rm --cached -r --ignore-unmatch .terraform/'
+     - #git filter-branch -f --index-filter 'git rm --cached -r --ignore-unmatch .terraform/'
    - git push나 pull했을 때 "fatal: refusing to merge unrelated histories" error 발생 시 조치 방법
-     #git pull origin [branch name] --allow-unrelated-histories 
+     - #git pull origin [branch name] --allow-unrelated-histories 
 
 
 2. Argocd 설치 방법
