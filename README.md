@@ -65,7 +65,7 @@
    - 7) AWS Loadbalancer Controller Pod 설치
         - #helm upgrade --install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=SAP-terraform-eks --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
    - 8) 생성한 controller pod 확인
-        - #kubectl -n kube-system get pods | grep balancer)
+        - #kubectl -n kube-system get pods | grep balancer
    - 9) aws alb 적용 예제 app
         - 가. #kubectl create namespace test-ing-alb
         - 나. #kubectl apply -f ./test-app-service.yaml
